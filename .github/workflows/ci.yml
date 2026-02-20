@@ -1,11 +1,11 @@
-name: Backend CI
+name: Full CI/CD Pipeline
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  test:
+  build-test-deploy:
     runs-on: ubuntu-latest
 
     services:
@@ -45,3 +45,7 @@ jobs:
         run: |
           cd backend
           pytest
+
+      - name: Build Docker Image
+        run: docker build -t taskflow-backend ./backend
+        
