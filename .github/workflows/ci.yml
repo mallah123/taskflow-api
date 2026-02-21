@@ -50,7 +50,7 @@ jobs:
       - name: Run tests
         run: |
           export PYTHONPATH=$PYTHONPATH:backend
-          pytest  backend]/tests
+          pytest  backend/tests
 
       - name: Build Docker Image
         run: docker build -t taskflow-backend ./backend
