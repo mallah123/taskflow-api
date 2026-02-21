@@ -45,14 +45,22 @@ jobs:
         run: |
           until pg_isready -h localhost -p 5432; do sleep 1; done
 
-
       - name: Run tests
         run: |
           export PYTHONPATH=$PYTHONPATH:backend
-          pytest  backend/tests
+          pytest backend/tests
 
-      - name: Build Docker Image
-        run: docker build -t taskflow-backend ./backend
+      # 🔥 DockerHub Login
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-
-        
+      # 🔥 Build and Push Image
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: true
+          tags: mallah123/taskflow-backend:latest
