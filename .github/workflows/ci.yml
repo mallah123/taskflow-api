@@ -37,10 +37,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd backend
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
-          # pip install pytest
-
+          pip install pytest
 
       - name: Wait for postgres
         run: |
